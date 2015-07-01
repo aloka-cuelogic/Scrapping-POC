@@ -41,7 +41,7 @@ for area in AREAS:
         price = html_string.xpath(
             '//*[@id="rightAgentH"]/div[2]/div[2]/div[3]/div[2]/ul/li[1]/div/span/text()')[0]
         property_id = html_string.xpath(
-            '//*[@id="rightAgentH"]/div[2]/div[2]/div[1]/span/text()')[0]
+            '//span[@class="lastPart"]/text()')[0].split(':')[1]
 
         print 'from_site:', from_site
         print 'description:', description
