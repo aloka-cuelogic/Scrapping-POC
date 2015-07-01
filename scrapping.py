@@ -16,7 +16,7 @@ for area in AREAS:
         'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' + \
         'Studio-Apartment,Service-Apartment&Locality=%s&cityName=Pune&BudgetMin=5,000&BudgetMax=10,000' % area
 
-    user_page = requests.get(url_str)
+    user_page = requests.get(url_str, headers=HEADERS)
     tree = html.fromstring(user_page.text)
 
     product_urls = tree.xpath(
