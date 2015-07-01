@@ -15,8 +15,8 @@ for area in AREAS:
 
     print "Searching result in " + area
 
-    url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' + \
-        'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' + \
+    url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' \
+        'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' \
         'Studio-Apartment,Service-Apartment&Locality=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
 
     user_page = requests.get(url_str, headers=HEADERS)
@@ -25,7 +25,6 @@ for area in AREAS:
     product_urls = tree.xpath(
         '//div[contains(@class,"srpBlock") and contains(@class, "srpContentImageWrap")]/@onclick')
 
-    print '\n\n'
     for link in product_urls:
         link_url = link.split("'")
         print "Search Result: http://www.magicbricks.com" + link_url[1]
@@ -47,3 +46,4 @@ for area in AREAS:
         print 'description:', description
         print 'price:', price
         print 'property_id:', property_id
+        print '\n\n'
