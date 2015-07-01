@@ -2,6 +2,8 @@ from lxml import html
 import requests
 import time
 
+
+place = 'Pune'
 AREAS = ['Hadapsar', 'Swargate', 'Viman Nagar']
 HEADERS = {'User-Agent':
            'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'}
@@ -14,7 +16,7 @@ for area in AREAS:
 
     url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' + \
         'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' + \
-        'Studio-Apartment,Service-Apartment&Locality=%s&cityName=Pune&BudgetMin=5,000&BudgetMax=10,000' % area
+        'Studio-Apartment,Service-Apartment&Locality=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
 
     user_page = requests.get(url_str, headers=HEADERS)
     tree = html.fromstring(user_page.text)
