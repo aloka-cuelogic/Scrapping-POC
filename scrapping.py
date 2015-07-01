@@ -24,20 +24,20 @@ for area in AREAS:
 
     print '\n\n'
     for link in product_urls:
-        s = link.split("'")
-        print "Search Result: http://www.magicbricks.com" + s[1]
+        link_url = link.split("'")
+        print "Search Result: http://www.magicbricks.com" + link_url[1]
         time.sleep(10)
 
         page = requests.get(
-            'http://www.magicbricks.com' + s[1], headers=HEADERS)
+            'http://www.magicbricks.com' + link_url[1], headers=HEADERS)
 
-        treee = html.fromstring(page.text)
+        html_string = html.fromstring(page.text)
 
-        from_site = treee.xpath('//meta[@property="og:title"]/@content')[0]
-        description = treee.xpath('//meta[@name="Description"]/@content')[0]
-        price = treee.xpath(
+        from_site = html_string.xpath('//meta[@property="og:title"]/@content')[0]
+        description = html_string.xpath('//meta[@name="Description"]/@content')[0]
+        price = html_string.xpath(
             '//*[@id="rightAgentH"]/div[2]/div[2]/div[3]/div[2]/ul/li[1]/div/span/text()')[0]
-        property_id = treee.xpath(
+        property_id = html_string.xpath(
             '//*[@id="rightAgentH"]/div[2]/div[2]/div[1]/span/text()')[0]
 
         print 'from_site:', from_site
