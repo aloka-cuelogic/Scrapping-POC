@@ -3,8 +3,9 @@ import requests
 import time
 
 
-place = 'Pune'
-AREAS = ['Hadapsar', 'Swargate', 'Viman Nagar']
+place = raw_input('Enter city: ').capitalize()
+area = raw_input('Enter area (For Multiple area enter , seprated): ')
+AREAS = area.split(',')
 HEADERS = {'User-Agent':
            'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'}
 
