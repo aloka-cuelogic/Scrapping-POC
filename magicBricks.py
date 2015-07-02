@@ -20,7 +20,8 @@ def scrap_magic_bricks():
 
         url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' \
             'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' \
-            'Studio-Apartment,Service-Apartment&Locality=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
+            'Studio-Apartment,Service-Apartment&Locality' \
+            '=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
 
         user_page = requests.get(url_str, headers=HEADERS)
         tree = html.fromstring(user_page.text)
