@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+
+"""
+Sample Script to Scrap a site using python lxml and request module.
+"""
+
 from lxml import html
 import requests
 import time
