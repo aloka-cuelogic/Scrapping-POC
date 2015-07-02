@@ -9,47 +9,47 @@ import requests
 import time
 
 
-place = raw_input('Enter city: ').capitalize()
-area = raw_input('Enter area (For Multiple area enter , seprated): ')
-AREAS = area.split(',')
-HEADERS = {'User-Agent':
-           'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'}
+def scrap_magic_bricks():
+    place = raw_input('Enter city: ').capitalize()
+    area = raw_input('Enter area (For Multiple area enter , seprated): ')
+    AREAS = area.split(',')
+    HEADERS = {'User-Agent':
+               'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'}
 
-# with open('HTML/2.html', 'r') as page:
+    for area in AREAS:
 
-for area in AREAS:
+        url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' \
+            'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' \
+            'Studio-Apartment,Service-Apartment&Locality=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
 
-    print "Searching result in " + area
+        user_page = requests.get(url_str, headers=HEADERS)
+        tree = html.fromstring(user_page.text)
 
-    url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' \
-        'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' \
-        'Studio-Apartment,Service-Apartment&Locality=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
+        product_urls = tree.xpath(
+            '//div[contains(@class,"srpBlock") and contains(@class, "srpContentImageWrap")]/@onclick')
 
-    user_page = requests.get(url_str, headers=HEADERS)
-    tree = html.fromstring(user_page.text)
+        for link in product_urls:
+            link_url = link.split("'")
+            time.sleep(10)
 
-    product_urls = tree.xpath(
-        '//div[contains(@class,"srpBlock") and contains(@class, "srpContentImageWrap")]/@onclick')
+            page = requests.get(
+                'http://www.magicbricks.com' + link_url[1], headers=HEADERS)
 
-    for link in product_urls:
-        link_url = link.split("'")
-        print "Search Result: http://www.magicbricks.com" + link_url[1]
-        time.sleep(10)
+            html_string = html.fromstring(page.text)
 
-        page = requests.get(
-            'http://www.magicbricks.com' + link_url[1], headers=HEADERS)
+            from_site = html_string.xpath('//meta[@property="og:title"]/@content')[0]
+            description = html_string.xpath('//meta[@name="Description"]/@content')[0]
+            price = html_string.xpath(
+                '//*[@id="rightAgentH"]/div[2]/div[2]/div[3]/div[2]/ul/li[1]/div/span/text()')[0]
+            property_id = html_string.xpath(
+                '//span[@class="lastPart"]/text()')[0].split(':')[1]
 
-        html_string = html.fromstring(page.text)
+            print 'from_site:', from_site
+            print 'description:', description
+            print 'price:', price
+            print 'property_id:', property_id
+            print '\n\n'
+            print '-------------------------------------------'
 
-        from_site = html_string.xpath('//meta[@property="og:title"]/@content')[0]
-        description = html_string.xpath('//meta[@name="Description"]/@content')[0]
-        price = html_string.xpath(
-            '//*[@id="rightAgentH"]/div[2]/div[2]/div[3]/div[2]/ul/li[1]/div/span/text()')[0]
-        property_id = html_string.xpath(
-            '//span[@class="lastPart"]/text()')[0].split(':')[1]
-
-        print 'from_site:', from_site
-        print 'description:', description
-        print 'price:', price
-        print 'property_id:', property_id
-        print '\n\n'
+if __name__ == '__main__':
+    scrap_magic_bricks()
