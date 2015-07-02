@@ -49,6 +49,7 @@ def scrap_magic_bricks():
             print 'description:', description
             print 'price:', price
             print 'property_id:', property_id
+            print 'property_url:', 'http://www.magicbricks.com' + link_url[1]
             print '\n\n'
             print '-------------------------------------------'
 
