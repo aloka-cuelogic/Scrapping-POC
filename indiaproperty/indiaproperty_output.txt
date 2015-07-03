@@ -1,0 +1,78 @@
+(scrapping)it123@it123:~/Documents/scrapping/indiaproperty$ python indiaproperty.py 
+Enter the city :pune
+Enter area's :warje
+
+ -------------------------------------------------------
+Title : 1 BHK - Warje, Pune
+product_url : indiaproperty_http://www.indiaproperty.com/1-bhk-apartment-for-rent-in-warje-pune-by-rashmi-kulkarni-4368326
+Id : indiaproperty_IP4368326
+Posted On : Jun 18, 2015
+Bedroom : 1 BHK
+Rent : 8,500
+Location : Waranasi soc, Behind Atul nagar, Near Bombay Bangalore Highway, Warje, Pune, Maharashtra
+Description : 1 BHK  + terrace  , Airy & well Ventilated flat on 1st floor- Behind Atul Nagar, nearby Bombay Bangalore Highway . 
+Have Solar facility, power backup in one of the hall. General stores,  grocery & other shops are on walk able distance.
+----------------------------------------------------------
+
+ -------------------------------------------------------
+Title : 1 BHK - Warje, Pune
+product_url : indiaproperty_http://www.indiaproperty.com/1-bhk-apartment-for-rent-in-warje-pune-by-shankar-mandhare-4260299
+Id : indiaproperty_IP4260299
+Posted On : Apr 23, 2015
+Bedroom : 1 BHK
+Rent : 8,500
+Location : Warje, Pune, Maharashtra
+Description : 1 bhk flat on rent in warje lift , parking , security , club house available Rent-8500/- Deposit-25000/- only family contact.
+----------------------------------------------------------
+
+ -------------------------------------------------------
+Title : 3 BHK - Warje, Pune
+product_url : indiaproperty_http://www.indiaproperty.com/3-bhk-apartment-for-rent-in-warje-pune-by-shree-ganesh-enterprises-4045061
+Id : indiaproperty_IP4045061
+Posted On : Apr 21, 2015
+Bedroom : 3 BHK
+Rent : 15,000
+Location : Near Cell Patrol Pump., Warje Highway. Pune., Warje, Pune, Maharashtra
+Description : Posh 3Bhk Flat,
+Lift,
+Parking,
+Terrace,
+Big Society,
+All Amenities Society,
+24 Hr Water And Security,
+Main Road Touch Society,
+Prime Location,
+Near All Market,
+More Details Call Shree Ganesh Real Estate.
+----------------------------------------------------------
+
+ -------------------------------------------------------
+Title : 1 BHK - Warje, Pune
+product_url : indiaproperty_http://www.indiaproperty.com/1-bhk-apartment-for-rent-in-warje-pune-by-sagar-sakpal-3780329
+Id : indiaproperty_IP3780329
+Posted On : Apr 21, 2015
+Bedroom : 1 BHK
+Rent : 8,000
+Location : Warje Pune Near by mahi mangheshkar hospital, Pune, Maharashtra
+Description : "1BHK flat available for sale in Pune"
+* The property is located in Warje Pune Near by mahi mangheshkar hospital
+* The property is located in a well maintain and good society
+* All basics amenities available in this property
+* a well maintained good society with lift and power back up facility. Parking, and other basic amenities
+----------------------------------------------------------
+
+ -------------------------------------------------------
+Title : 2 BHK - Warje, Pune
+product_url : indiaproperty_http://www.indiaproperty.com/2-bhk-apartment-for-rent-in-warje-pune-by-sapna-shah-3646662
+Id : indiaproperty_IP3646662
+Posted On : Apr 21, 2015
+Bedroom : 2 BHK
+Rent : 15,000
+Location : Warje, Pune, Maharashtra
+Description : ALL AMNITIES PEOVIDED
+SWIMMING POOL
+GYM
+SECURITY
+RAIN WATER HARVESTING
+24 HOURS LIFT AND WATER
+----------------------------------------------------------
