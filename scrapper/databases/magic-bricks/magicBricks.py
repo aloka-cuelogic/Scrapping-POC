@@ -8,15 +8,15 @@ from lxml import html
 import requests
 import time
 
+# @TODO:Make list of User-Agent and randomly attach User-Agent for every request
+HEADERS = {'User-Agent':
+           'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'}
 
-def scrap_magic_bricks():
-    place = raw_input('Enter city: ').capitalize()
-    area = raw_input('Enter area (For Multiple area enter , seprated): ')
-    AREAS = area.split(',')
-    HEADERS = {'User-Agent':
-               'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'}
 
-    for area in AREAS:
+def parse_content(place, area):
+    areas = area.split(',')
+
+    for area in areas:
 
         url_str = 'https://www.magicbricks.com/property-for-rent/residential-real-estate?' \
             'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' \
@@ -31,6 +31,13 @@ def scrap_magic_bricks():
 
         for link in product_urls:
             link_url = link.split("'")
+
+            # Crawling hits the website to get all the results
+            # This may lead your IP to be blocked by host company
+            # To prevent this we are making small delay of 10 seconds between two
+            # consecutive requests
+            # Also setting headers in request to make host feel that a request
+            # is coming from browser
             time.sleep(10)
 
             page = requests.get(
@@ -47,6 +54,7 @@ def scrap_magic_bricks():
             property_id = html_string.xpath(
                 '//span[@class="lastPart"]/text()')[0].split(':')[1]
 
+            # @alok  This is for testing purpose and need to be removed once entire app is developed
             print 'from_site:', from_site
             print 'description:', description
             print 'price:', price
@@ -57,4 +65,11 @@ def scrap_magic_bricks():
 
 
 if __name__ == '__main__':
-    scrap_magic_bricks()
+    '''
+    Getting place and area is temporary 
+    it will be removed once actual crawler is up
+    as crawler will be taking care of it
+    '''
+    place = raw_input('Enter city: ').capitalize()
+    area = raw_input('Enter area (For Multiple area enter , seprated): ')
+    parse_content(place, area)
