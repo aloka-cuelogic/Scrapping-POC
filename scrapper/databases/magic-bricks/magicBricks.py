@@ -18,7 +18,7 @@ def parse_content(place, area):
 
     for area in areas:
 
-        url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' \
+        url_str = 'https://www.magicbricks.com/property-for-rent/residential-real-estate?' \
             'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' \
             'Studio-Apartment,Service-Apartment&Locality' \
             '=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
@@ -41,7 +41,7 @@ def parse_content(place, area):
             time.sleep(10)
 
             page = requests.get(
-                'http://www.magicbricks.com' + link_url[1], headers=HEADERS)
+                'https://www.magicbricks.com' + link_url[1], headers=HEADERS)
 
             html_string = html.fromstring(page.text)
 
@@ -62,6 +62,7 @@ def parse_content(place, area):
             print 'property_url:', 'http://www.magicbricks.com' + link_url[1]
             print '\n\n'
             print '-------------------------------------------'
+
 
 if __name__ == '__main__':
     '''
