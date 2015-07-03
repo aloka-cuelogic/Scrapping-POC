@@ -10,6 +10,7 @@ HEADERS = {'User-Agent':
 
 
 def parse_content(city, area):
+    results=[]
     areas = area.split(',')
     for area in areas:
         page = requests.get(
@@ -18,7 +19,7 @@ def parse_content(city, area):
 
         tree = html.fromstring(page.text)
 
-        product_url_list = tree.xpath('//div[@class="heading-content information"]/a[@href]/@href')
+        product_url_list = tree.xpath('//div[@class="heading-content information"]/a[@href]/@href')[:2]
 
         for link in product_url_list:
             # Crawling hits the website to get all the results
@@ -37,13 +38,12 @@ def parse_content(city, area):
             price = tree.xpath('string(//div[@class="banner"]/div[1]/div[2]/div[1]/span[2]/text())').strip()
             property_id = tree.xpath('string(//div[@class="apartment-header"]/div[2]/ul/li[4]/text())').strip()
             # @deepalib  This is for testing purpose and need to be removed once entire app is developed
-            print '\n\n'
-            print 'from_site:', from_site
-            print 'product_url:', product_url
-            print 'housing_id:', property_id
-            print 'description:', description
-            print 'price:', price
-            print '---------------------------------------------------'
+            results.append({'product_url':product_url ,
+                            'from_site':from_site,
+                            'description':description,
+                            'price':price,
+                            'property_id':from_site+'_'+ str(property_id)})
+        return results
 
 if __name__ == '__main__':
     '''
