@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from databases.models import Property
-from databases.sulekha import scrap_sulekha
+from databases.sulekha import sulekha
 
 
 def index(request):
-        results = scrap_sulekha()
+    place = raw_input("Enter city: ").lower()
+    area = raw_input(
+        "Enter area (For multiple area enter ,seprated values): ").lower()
+
+    sulekha.parse_content(place, area)

@@ -38,8 +38,10 @@ def scrap_magic_bricks():
 
             html_string = html.fromstring(page.text)
 
-            from_site = html_string.xpath('//meta[@property="og:title"]/@content')[0]
-            description = html_string.xpath('//meta[@name="Description"]/@content')[0]
+            from_site = html_string.xpath(
+                '//meta[@property="og:title"]/@content')[0]
+            description = html_string.xpath(
+                '//meta[@name="Description"]/@content')[0]
             price = html_string.xpath(
                 '//*[@id="rightAgentH"]/div[2]/div[2]/div[3]/div[2]/ul/li[1]/div/span/text()')[0]
             property_id = html_string.xpath(

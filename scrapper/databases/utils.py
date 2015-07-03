@@ -3,7 +3,7 @@ from databases.models import Property
 from django.db import IntegrityError
 
 
-def create_property(property_context):
+def add_property(property_context):
 
     try:
         property = Property.objects.create(
