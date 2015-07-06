@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+    <script src="static/js/scrapper.js"></script>
+  </head>
+  <title>Scrapping-POC</title>
+  <body>
+    <div class="container">
+      <h3> Scrapping-POC </h3>
+
+      <form id="getcityarea" method="POST">
+        {% csrf_token %}
+         <table id="tabledata">
+           <tr>
+            <td colspan="0" align="center">
+             City
+            </td>
+            <td colspan="0">
+             <input type="text" name="city" id="id_city" placeholder="Enter City" required>
+            </td>
+           </tr>
+           <tr>
+            <td colspan="0" align="center">
+             Locality
+            </td>
+            <td colspan="0">
+             <input type="text" name="area" id="id_locality" placeholder="Enter Locality" required>
+            </td>
+           </tr>
+           <tr>
+            <td>
+            </td>
+            <td>
+              <input type="submit" name="Submit">
+            </td>
+           </tr>
+       </table>
+      </form>
+
+      <!--Block for displaying results after ajax request-->
+      <div id="resultdisplay">
+      </div>
+
+    </div>
+  </body>
+</html>

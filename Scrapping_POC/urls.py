@@ -5,6 +5,6 @@ from django.conf import settings
 urlpatterns = patterns('',
     # Enable the URLs when implemented
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$','core.views.home'),
-    url(r'^core/', include('core.urls', namespace='core')),
+    url(r'^$','crawler.views.home'),
+    url(r'^crawler/', include('crawler.urls', namespace='crawler')),
 )

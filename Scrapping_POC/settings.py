@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
+    'crawler',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'Scrapping_POC.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'scrapper',
+        'USER': 'scrapper',
+        'PASSWORD': 'otv0n9bazFHuH4ICSmVTlR5aXUzTN8p1pJRDIRB7k8pP0YfH81qjGlit4HaHFnyU',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -88,7 +92,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
