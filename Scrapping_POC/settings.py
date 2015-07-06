@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import djcelery
+
+djcelery.setup_loader()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -38,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crawler',
+    'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +56,16 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'Scrapping_POC.urls'
+CELERY_RESULT_BACKEND = "amqp"
+CELERY_IMPORTS = ("crawler.tasks", )
+CELERY_ALWAYS_EAGER = True
+
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_PASSWORD = "scraper"
+BROKER_USER = "scraper"
+BROKER_VHOST = "localhost"
+BROKER_URL = "amqp://scraper:scraper@localhost:5672/localhost"
 
 TEMPLATES = [
     {
@@ -105,3 +119,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+from celery.schedules import crontab
+
+# The default Django db scheduler
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+CELERYBEAT_SCHEDULE = {
+    "housing-officials": {
+        "task": "crawler.tasks.housing_officials",
+        # Every Sunday at 4:30AM
+        "schedule": crontab(minute="*/41"),
+        "args": (),
+    },
+    "magicbricks-officials": {
+        "task": "crawler.tasks.magicbricks_officials",
+        # Every Sunday at 4:30AM
+        "schedule": crontab(minute="*/46"),
+        "args": (),
+    },
+    "propertywala-officials": {
+        "task": "crawler.tasks.propertywala_officials",
+        # Every Sunday at 4:30AM
+        "schedule": crontab(minute="*/51"),
+        "args": (),
+    },
+    "sulekha-officials": {
+        "task": "crawler.tasks.sulekha_officials",
+        # Every Sunday at 4:30AM
+        "schedule": crontab(minute="*/57"),
+        "args": (),
+    },
+}

@@ -3,27 +3,29 @@
 """
 Sample Script to Scrap a site using python lxml and request module.
 """
+import os, sys
+currDir = os.path.dirname(os.path.realpath(__file__))
+rootDir = os.path.abspath(os.path.join(currDir, '..'))
+sys.path.append(rootDir)
+os.environ["DJANGO_SETTINGS_MODULE"] = "Scrapping_POC.settings"
 
-from lxml import html
 import requests
 import time
 
-# @TODO:Make list of User-Agent and randomly attach User-Agent for every request
-HEADERS = {'User-Agent':
-           'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0'}
+from crawler.utils import add_property
+from lxml import html
+
+import helper
 
 
-def parse_content(place, area):
-    areas = area.split(',')
-
+def parse_content(place, areas):
     for area in areas:
-
-        url_str = 'https://www.magicbricks.com/property-for-rent/residential-real-estate?' \
+        url_str = 'http://www.magicbricks.com/property-for-rent/residential-real-estate?' \
             'proptype=Multistorey-Apartment,Builder-Floor-Apartment,Penthouse,' \
             'Studio-Apartment,Service-Apartment&Locality' \
             '=%s&cityName=%s&BudgetMin=5,000&BudgetMax=10,000' % (area, place)
 
-        user_page = requests.get(url_str, headers=HEADERS)
+        user_page = requests.get(url_str, headers=helper.HEADERS)
         tree = html.fromstring(user_page.text)
 
         product_urls = tree.xpath(
@@ -41,27 +43,33 @@ def parse_content(place, area):
             time.sleep(10)
 
             page = requests.get(
-                'https://www.magicbricks.com' + link_url[1], headers=HEADERS)
+                'http://www.magicbricks.com' + link_url[1], headers=helper.HEADERS)
 
             html_string = html.fromstring(page.text)
 
+            product_url = 'https://www.magicbricks.com' + link_url[1] 
             from_site = html_string.xpath(
-                '//meta[@property="og:title"]/@content')[0]
+                '//meta[@property="og:title"]/@content')[0].strip()
             description = html_string.xpath(
-                '//meta[@name="Description"]/@content')[0]
-            price = html_string.xpath(
-                '//*[@id="rightAgentH"]/div[2]/div[2]/div[3]/div[2]/ul/li[1]/div/span/text()')[0]
-            property_id = html_string.xpath(
-                '//span[@class="lastPart"]/text()')[0].split(':')[1]
+                '//meta[@name="Description"]/@content')[0].strip()
+            monthly_rent = helper.check_range(
+                html_string.xpath(
+                    '//*[@id="rightAgentH"]/div[2]/div[2]/div[3]/div[2]/ul/li[1]/div/span/text()')[0].strip())
+            product_id = html_string.xpath(
+                '//span[@class="lastPart"]/text()')[0].split(':')[1].strip()
+            location = html_string.xpath(
+                '//span[@class="place"]/text()')[0].strip()
 
-            # @alok  This is for testing purpose and need to be removed once entire app is developed
-            print 'from_site:', from_site
-            print 'description:', description
-            print 'price:', price
-            print 'property_id:', property_id
-            print 'property_url:', 'http://www.magicbricks.com' + link_url[1]
-            print '\n\n'
-            print '-------------------------------------------'
+            property_context = {}
+            property_context['adverties_id'] = from_site + str(product_id)
+            property_context['property_url'] = product_url
+            property_context['location'] = location
+            property_context['description'] = description
+            property_context['monthly_rent'] = monthly_rent
+
+            if monthly_rent is not None:
+                add_property(property_context)
+                print "record inserted"
 
 
 if __name__ == '__main__':
@@ -71,5 +79,6 @@ if __name__ == '__main__':
     as crawler will be taking care of it
     '''
     place = raw_input('Enter city: ').capitalize()
-    area = raw_input('Enter area (For Multiple area enter , seprated): ')
+    areas = raw_input('Enter area (For Multiple area enter , seprated): ')
+    area = areas.split(',')
     parse_content(place, area)
